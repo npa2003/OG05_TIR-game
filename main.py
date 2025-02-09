@@ -12,18 +12,18 @@ pygame.display.set_icon(icon)
 
 target_image = pygame.image.load('image/target_icon.png')
 
-target_width = target_image.get_width() # получаем размер изображения
-target_height = target_image.get_height()
-print(target_width, target_height)
+tar_width = target_image.get_width() # получаем размер изображения
+tar_height = target_image.get_height()
+print(tar_width, tar_height)
 
-target_width, target_width = target_image.get_size() # получаем размер изображения альтернативно
-print(target_width, target_height)
+tar_width, tar_width = target_image.get_size() # получаем размер изображения альтернативно
+print(tar_width, tar_height)
 
-target_width = 80
-target_height = 80
-target_image = pygame.transform.scale(target_image,(target_width, target_height))
-target_x = random.randint(0, SCREEN_WIDTH - target_width)
-target_y = random.randint(0, SCREEN_HEIGHT - target_height)
+tar_width = 80
+tar_height = 80
+target_image = pygame.transform.scale(target_image, (tar_width, tar_height)) # трансформируем изображение в новый размер
+tar_x = random.randint(0, SCREEN_WIDTH - tar_width)
+tar_y = random.randint(0, SCREEN_HEIGHT - tar_height)
 
 color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
 print(color)
@@ -36,10 +36,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            if tar_x < mouse_x < tar_x + tar_width and tar_y < mouse_y < tar_y + tar_height:
+                tar_x = random.randint(0, SCREEN_WIDTH - tar_width)
+                tar_y = random.randint(0, SCREEN_HEIGHT - tar_height)
 
-    screen.blit(target_image, (target_x, target_y))
+    screen.blit(target_image, (tar_x, tar_y))
     pygame.display.update()
-
-
 
 pygame.quit()
